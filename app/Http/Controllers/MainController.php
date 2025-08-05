@@ -36,6 +36,8 @@ public function singleProduct()
     return view('singleProduct');
 }
 
+
+
 public function register()
 {
   return view('register');
@@ -56,5 +58,22 @@ public function registerUser(Request $data) {
   
 }
 
+public function loginUser(Request $data)
+{
 
+    $user = User::where('email',$data->input('email'))->where('password',$data->input('password'))->first();
+if($user){
+    session()->put('id',$user->id);
+    session()->put('type',$user->type);
+    if($user->type=='Customer');
+
+}
+    // return view('singleProduct');
+}
+
+
+public function login()
+{
+    return view('singleProduct');
+}
 }
