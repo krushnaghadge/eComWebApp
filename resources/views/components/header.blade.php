@@ -14,14 +14,14 @@
     rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="{{URL::asset('css/bootstrap.min.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{URL::asset('css/font-awesome.min.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{URL::asset('css/elegant-icons.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{URL::asset('css/magnific-popup.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{URL::asset('css/nice-select.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{URL::asset('css/owl.carousel.min.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{URL::asset('css/slicknav.min.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{URL::asset('css/style.css')}}" type="text/css">
 </head>
 
 <body>
@@ -111,8 +111,14 @@
                                     {{-- <li><a href="./blog-details.html">Blog Details</a></li> --}}
                                 </ul>
                             </li>
-                            <li><a href="{{ url('/login') }}">Login</a></li>
-                            <li><a href="{{ url('/register') }}">register</a></li>
+
+                          @if (session()->has('id'))
+    <li><a href="{{ url('/logout') }}">Logout</a></li>
+@else
+    <li><a href="{{ url('/login') }}">Login</a></li>
+    <li><a href="{{ url('/register') }}">Register</a></li>
+@endif
+
                         </ul>
                     </nav>
                 </div>

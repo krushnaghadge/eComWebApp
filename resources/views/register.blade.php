@@ -11,14 +11,16 @@
 
                     <h2> Crete New Account</h2>
                     <div class="contact__form">
-                           @if (@section()->has('sucess'))
+                           {{-- @if (@section()->has('sucess'))
                             <div class="alert alert-sucess">
                                 <p>{{session()->get('sucess')
                                     
                                 }}</p>
                             </div>
-                        @endif
-                        <form action="{{url('/registerUser')}}" method="POST" enctype="multipart/form-data">
+                        @endif --}}
+                        {{-- <form action="{{url('/registerUser')}}" method="POST" enctype="multipart/form-data"> --}}
+                        <form action="{{ url('/registerUser') }}" method="POST" enctype="multipart/form-data">
+  
                             @csrf
                             <div class="row">
                                 <div class="col-lg-6">

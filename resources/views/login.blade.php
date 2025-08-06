@@ -19,17 +19,24 @@
     </div>
 @endif
 
+@if (session()->has('error'))
+    <div class="alert alert-danger">
+        <p>{{ session('error') }}</p>
+    </div>
+@endif
+
+
 
                         <form action="{{url('/loginUser')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                             
                                 <div class="col-lg-6">
-                                    <input type="email" placeholder="email" required>
+                                    <input type="email" name="email" placeholder="email" required>
                                 </div>
                               
                                 <div class="col-lg-6">
-                                    <input type="password" placeholder="password" required>
+                                    <input type="password" name="password" placeholder="password" required>
                                 </div>
                                 <div class="col-lg-12">
                                   
