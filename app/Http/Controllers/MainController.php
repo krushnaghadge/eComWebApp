@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Support\Facades\Log;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller
 {
@@ -21,10 +23,17 @@ class MainController extends Controller
     }
 
 
-    public function cart()
-    {
-        return view('cart');
-    }
+   public function cart()
+{
+    $cartItems = DB::table('products')
+        ->join('carts', 'carts.productId', '=', 'products.id')
+        ->select('products.title', 'products.quantity as pQuantity','products.price', 'products.picture', 'carts.*')
+        ->where('carts.customerId', session()->get('id'))
+        ->get();
+
+    return view('cart', compact('cartItems'));
+}
+
 
     public function checkout()
     {
@@ -134,4 +143,33 @@ class MainController extends Controller
 
         return view('dashboard', compact('allProduct', 'newArrival', 'hotSale'));
     }
+
+public function addToCart(Request $request)
+{
+    if (session()->has('id')) {
+        $item = new Cart();
+
+        $item->quantity = $request->input('quantity');
+        $item->productId = $request->input('id');
+        $item->customerId = session('id'); // Corrected way to retrieve session data
+
+        $item->save();
+
+        return redirect()->back()->with('success', 'Item added to cart successfully.');
+    } else {
+        return redirect()->back()->with('alert', 'You must be logged in to add items to your cart.');
+    }
+}
+
+public function deleteCartItem ($id){
+
+     $item=Cart::find($id);
+     $item->delete();
+     return redirect()->back()->with('sucess','1 Itema cart delete sucessfully');
+}
+
+
+
+
+
 }

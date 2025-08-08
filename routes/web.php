@@ -26,5 +26,7 @@ Route::get('/login', [MainController::class, 'showLogin']); // shows login form
 Route::post('/loginUser', [MainController::class, 'loginUser']); // handles login submission
 Route::get('/dashboard', [MainController::class, 'dashboard']); // shows dashboard after login
 Route::get('/logout', [MainController::class, 'logout']);
+Route::post('/addToCart', [MainController::class, 'addToCart']); // handles \ submission addToCart
 
+Route::get('deleteCartItem/{id}', [MainController::class, 'deleteCartItem']);
 
