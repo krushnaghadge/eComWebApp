@@ -19,10 +19,12 @@ Route::post('/checkout', [MainController::class, 'checkout']);
 
 // Route::post('/register', [MainController::class,'register']);
 Route::get('/register', [MainController::class,'register']);
-
+Route::get('/order', [MainController::class,'myOrders']);
 
 Route::post('/registerUser', [MainController::class,'registerUser']);
 Route::get('/login', [MainController::class, 'showLogin']); // shows login form
+
+Route::get('/checkout', [MainController::class, 'checkout']); // shows checkout form
 Route::post('/loginUser', [MainController::class, 'loginUser']); // handles login submission
 Route::get('/dashboard', [MainController::class, 'dashboard']); // shows dashboard after login
 Route::get('/logout', [MainController::class, 'logout']);

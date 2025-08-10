@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Support\Facades\Log;
 
@@ -17,9 +19,15 @@ class MainController extends Controller
 
     public function index()
     {
-        $allProduct = Product::all();
-        dd($allProduct);
-        return view('index');
+       
+       // dd($allProduct);
+
+       $allProduct = Product::all();
+        $newArrival = Product::where('type', 'new-arrivals')->get();
+        $hotSale = Product::where('type', 'hot-sales')->get();
+        // return view('dashbord');
+
+        return view('dashboard', compact('allProduct', 'newArrival', 'hotSale'));
     }
 
 
@@ -35,10 +43,7 @@ class MainController extends Controller
 }
 
 
-    public function checkout()
-    {
-        return view('checkout');
-    }
+   
 
     public function shop()
     {
@@ -167,6 +172,82 @@ public function deleteCartItem ($id){
      $item->delete();
      return redirect()->back()->with('sucess','1 Itema cart delete sucessfully');
 }
+ 
+
+public function updateCart(Request $data)  
+{
+    if (session()->has('id'))
+         {
+        $item = Cart::find($data->input('id'));
+
+        $item->quantity = $data->input('quantity');
+        
+        $item->save();
+
+        return redirect()->back()->with('success', 'Item quantity updated successfully.');
+    } else {
+        return redirect()->back()->with('alert', 'You must be logged in to update items to your cart.');
+    }
+}
+
+
+public function checkout(Request $data)  
+{
+    if (session()->has('id'))
+         {
+
+            $order=new Order();
+            $order->status="pending";
+            $order->customerId = session('id');
+            
+
+        $order->bill = $data->input('bill');
+        $order->adress = $data->input('address');
+        $order->fullname = $data->input('fullname');
+          $order->phone = $data->input('phone');
+
+       if($order->save())
+        {
+            $carts=Cart::where('customerId',session()->get('id'))->get();
+            foreach ( $carts as $item)
+            {
+                $product=Product::find($item->productId);
+                $orderItem =new OrderItem();
+
+        $orderItem->productId = $item->productId;
+        $orderItem->quantity = $item->quantity;
+        $orderItem->price = $product->price;
+        $orderItem->orderId = $order->id;
+        $orderItem->save();
+        $item->delete();
+
+
+            }
+        };
+
+        return redirect()->back()->with('success', 'your order successfully placed.');
+    } else {
+        return redirect()->back()->with('alert', 'You must be logged in to update items to your cart.');
+    }
+}
+
+
+public function myOrders()
+{
+    if (session()->has('id')) {
+        $orders = Order::where('customerId', session()->get('id'))->get();
+        
+        $items = DB::table('products')
+            ->join('order_items', 'order_items.productId', '=', 'products.id')
+            ->select('products.title', 'products.picture', 'order_items.*')
+            ->get();
+
+        return view('order', compact('orders', 'items'));
+    }
+
+    return redirect('login');
+}
+
 
 
 

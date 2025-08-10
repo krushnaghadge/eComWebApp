@@ -87,6 +87,11 @@
     <script src="{{URL::asset('js/mixitup.min.js')}}"></script>
     <script src="{{URL::asset('js/owl.carousel.min.js')}}"></script>
     <script src="{{URL::asset('js/main.js')}}"></script>
+        <!-- Bootstrap Bundle JS (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
 </body>
 
 </html>

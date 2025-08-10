@@ -26,11 +26,13 @@
                 <div class="col-lg-8">
                     <div class="shopping__cart__table">
 
-@if (session()->has('sucess'))
-<div class="alert alert-sucess">
-    {{ session()->get('sucess') }} </div>
-    
+@if(session()->has('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
 @endif
+
+
 
                         <table>
                             <thead>
@@ -95,10 +97,23 @@
                     <div class="cart__total">
                         <h6>Cart total</h6>
                         <ul>
-                            <li>Subtotal <span>$ 169.50</span></li>
-                            <li>Total <span>$ 169.50</span></li>
+                            {{-- <li>Subtotal <span>$ {{ $total }}</span></li>
+                            <li>Total <span>$ {{ $total }}</span></li> --}}
+                           
                         </ul>
-                        <a href="#" class="primary-btn">Proceed to checkout</a>
+                      <form action="{{ url('checkout') }}" method="POST">
+    @csrf
+    <input type="text" name="fullname" class="form-control mt-2" placeholder="Enter full Name" required>
+    <input type="text" name="phone" class="form-control mt-2" placeholder="Enter Phone no" required>
+    <input type="text" name="address" class="form-control mt-2" placeholder="Enter address" required>
+    {{-- If you need to pass bill value --}}
+    {{-- <input type="hidden" name="bill" value="{{ $total }}"> --}}
+     <input type="hidden" name="bill" value="233">
+    
+    <button type="submit" class="primary-btn mt-2 btn-block">Proceed to Checkout</button>
+</form>
+
+                        {{-- <a href="#" class="primary-btn">Proceed to checkout</a> --}}
                     </div>
                 </div>
             </div>
