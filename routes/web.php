@@ -1,7 +1,15 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
+
+//Admin routes
+
+Route::get('/admin', [AdminController::class, 'index']);
+Route::get('/adminProducts', [AdminController::class, 'products']);
+
+
 
 
 // Route::get('/', function () {
