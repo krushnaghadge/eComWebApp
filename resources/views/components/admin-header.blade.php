@@ -371,11 +371,11 @@
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="{{ URL::to('/logout') }}"> LogOut </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Profile </a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ URL::to('/adminProfile') }}"> Profile </a></li>
               </ul>
             </div>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
               <i class="icon-ban menu-icon"></i>
               <span class="menu-title">CMS</span>
@@ -393,6 +393,11 @@
               <i class="icon-paper menu-icon"></i>
               <span class="menu-title">Documentation Page</span>
             </a>
-          </li>
+          </li> --}}
         </ul>
       </nav>
+
+      
+          <div class="main-panel">
+        <div class="content-wrapper">
+         

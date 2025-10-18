@@ -1,15 +1,78 @@
 <x-admin-header/>
       <!-- partial -->
-      <div class="main-panel">
+      {{-- <div class="main-panel">
         <div class="content-wrapper">
-         
+          --}}
         
-      
+       
+          
           <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
                   <p class="card-title mb-0">Top Products</p>
+
+
+
+
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewModal">
+ Add New
+</button>
+
+
+
+<div class="modal" id="addNewModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+     <form action="{{ url('/') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+
+    <label for="title">Title</label>
+    <input type="text" name="title" id="title" placeholder="Title" class="form-control mb-2">
+
+    <label for="price">Price</label>
+    <input type="text" name="price" id="price" placeholder="Price" class="form-control mb-2">
+
+    <label for="quantity">Quantity</label>
+    <input type="text" name="quantity" id="quantity" placeholder="Quantity" class="form-control mb-2">
+
+    <label for="picture">Picture</label>
+    <input type="file" name="picture" id="picture" class="form-control mb-2">
+
+    <label for="description">Description</label>
+    <input type="text" name="description" id="description" placeholder="Description" class="form-control mb-2">
+
+    <label for="category">Category</label>
+    <select name="category" id="category" class="form-control mb-2">
+        <option value="Electronics">Electronics</option>
+        <option value="Repair">Repair</option>
+    </select>
+
+    <label for="type">Type</label>
+    <select name="type" id="type" class="form-control mb-2">
+        <option value="new_arrival">New Arrival</option>
+        <option value="new">New</option>
+    </select>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+      </div>
+
+      
+
+    </div>
+  </div>
+</div>
                   <div class="table-responsive">
                     <table class="table table-striped table-borderless">
                       <thead>
@@ -21,48 +84,16 @@
                         </tr>  
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Search Engine Marketing</td>
-                          <td class="font-weight-bold">$362</td>
-                          <td>21 Sep 2018</td>
-                          <td class="font-weight-medium"><div class="badge badge-success">Completed</div></td>
+                        @foreach ($products as $item )
+                           <tr>
+                          <td>{{ $item->title }}</td>
+                          <td class="font-weight-bold">${{ $item->quantity }}</td>
+                          <td>{{ $item->category }}</td>
+                          <td class="font-weight-medium"><div class="badge badge-success">{{ $item->category }}</div></td>
                         </tr>
-                        <tr>
-                          <td>Search Engine Optimization</td>
-                          <td class="font-weight-bold">$116</td>
-                          <td>13 Jun 2018</td>
-                          <td class="font-weight-medium"><div class="badge badge-success">Completed</div></td>
-                        </tr>
-                        <tr>
-                          <td>Display Advertising</td>
-                          <td class="font-weight-bold">$551</td>
-                          <td>28 Sep 2018</td>
-                          <td class="font-weight-medium"><div class="badge badge-warning">Pending</div></td>
-                        </tr>
-                        <tr>
-                          <td>Pay Per Click Advertising</td>
-                          <td class="font-weight-bold">$523</td>
-                          <td>30 Jun 2018</td>
-                          <td class="font-weight-medium"><div class="badge badge-warning">Pending</div></td>
-                        </tr>
-                        <tr>
-                          <td>E-Mail Marketing</td>
-                          <td class="font-weight-bold">$781</td>
-                          <td>01 Nov 2018</td>
-                          <td class="font-weight-medium"><div class="badge badge-danger">Cancelled</div></td>
-                        </tr>
-                        <tr>
-                          <td>Referral Marketing</td>
-                          <td class="font-weight-bold">$283</td>
-                          <td>20 Mar 2018</td>
-                          <td class="font-weight-medium"><div class="badge badge-warning">Pending</div></td>
-                        </tr>
-                        <tr>
-                          <td>Social media marketing</td>
-                          <td class="font-weight-bold">$897</td>
-                          <td>26 Oct 2018</td>
-                          <td class="font-weight-medium"><div class="badge badge-success">Completed</div></td>
-                        </tr>
+                    
+                        @endforeach
+                       
                       </tbody>
                     </table>
                   </div>
@@ -71,8 +102,8 @@
             </div>
            
           </div>
-      
-      
+         
+        
 
 
         <!-- content-wrapper ends -->
